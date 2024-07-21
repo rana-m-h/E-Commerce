@@ -6,6 +6,7 @@ import { uploadSingelFile } from "../../fileUploas/upload.js";
 import { addCategoryVal } from "./category.vaildation.js";
 import { validate } from "../middelware/validate.js";
 import subcategoryRouter from "../subcategory/subcategory.routes.js";
+import { protectedRoutes } from "../auth/auth.controller.js";
 
 
 
@@ -16,14 +17,14 @@ categoryRouter.use('/:categorie/subCategories' , subcategoryRouter)
 
 categoryRouter
 .route('/')
-.post(uploadSingelFile('image' , 'categories' ),validate(addCategoryVal) , addCategory)
+.post(protectedRoutes , allowedto('admin') , uploadSingelFile('image' , 'categories' ),validate(addCategoryVal) , addCategory)
 .get(allCategory)
 
 categoryRouter
 .route('/:id')
 .get(getCategory)
-.put(uploadSingelFile('image' , 'categories' ) , updateCategory)
-.delete(deleteCategory)
+.put(protectedRoutes , allowedto('admin') , uploadSingelFile('image' , 'categories' ) , updateCategory)
+.delete(protectedRoutes , allowedto('admin') , deleteCategory)
 
 
 export default categoryRouter

@@ -1,21 +1,29 @@
 
 
 import { Router } from "express";
-import { addbrand, allbrands, deletebrand, getbrand, updatebrand } from "./brand.Controller.js";
 import { uploadMaxOFlFile } from "../../fileUploas/upload.js";
+import { addproduct, allproducts, deleteproduct, getproduct, updateproduct } from "./product.Controller.js";
+import { protectedRoutes } from "../auth/auth.controller.js";
 
-const brandRouter = Router()
+const ProductRouter = Router()
 
-brandRouter
+ProductRouter
 .route('/')
-.post(uploadMaxOFlFile([{name: 'imageCover' , maxCount: 1} , {name: 'images' , maxCount: 8}], 'products'),addbrand)
-.get(allbrands)
+.post(protectedRoutes , allowedto('admin') , 
+uploadMaxOFlFile([{name: 'imageCover' , maxCount: 1} , 
+{name: 'images' , maxCount: 8}], 'products'),addproduct)
 
-brandRouter
+.get(allproducts)
+
+ProductRouter
 .route('/:id')
-.get(getbrand)
-.put(uploadMaxOFlFile([{name: 'imageCover' , maxCount: 1} , {name: 'images' , maxCount: 8}], 'products'),updatebrand)
-.delete(deletebrand)
+.get(getproduct)
+
+.put(protectedRoutes , allowedto('admin') ,
+ uploadMaxOFlFile([{name: 'imageCover' , maxCount: 1} ,
+{name: 'images' , maxCount: 8}], 'products'),updateproduct)
+
+.delete(protectedRoutes , allowedto('admin') , deleteproduct)
 
 
-export default brandRouter
+export default ProductRouter

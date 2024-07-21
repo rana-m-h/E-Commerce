@@ -2,20 +2,21 @@
 
 import { Router } from "express";
 import { addSubCategory, allSubCategory,  deleteSubCategory,  getSubCategory, updateSubCategory } from "./subcategory.Controller.js";
+import { protectedRoutes } from "../auth/auth.controller.js";
 
 
 const subcategoryRouter = Router({ mergeParams:true })
 
 subcategoryRouter
 .route('/')
-.post(addSubCategory)
+.post(protectedRoutes , allowedto('admin') , addSubCategory)
 .get(allSubCategory)
 
 subcategoryRouter
 .route('/:id')
 .get(getSubCategory)
-.put(updateSubCategory)
-.delete(deleteSubCategory)
+.put(protectedRoutes , allowedto('admin') , updateSubCategory)
+.delete(protectedRoutes , allowedto('admin') , deleteSubCategory)
 
 
 export default subcategoryRouter
