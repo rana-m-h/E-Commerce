@@ -1,7 +1,7 @@
 
 
 import { Schema, Types, model } from "mongoose"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs";
 
 const schema = new Schema(
     {
@@ -20,30 +20,31 @@ const schema = new Schema(
             default: 'user'
         },
 
-        passwordChangeAt:Date,
-        wishlist:[{type: Types.ObjectId , ref:"product"}],
-        addresses:[{city:String , phone:String , street:String}]
+        passwordChangeAt: Date,
+        wishlist: [{ type: Types.ObjectId, ref: "product" }],
+        addresses: [{ city: String, phone: String, street: String }]
     },
     {
         timestamps: {
             createdAt: "publishedDate",
             updatedAt: false
         },
-        versionKey: false })
+        versionKey: false
+    })
 
 
 
 
- schema.pre('save' , function(){
-    
-this.password = bcrypt.hashSync(this.password , 8)
+schema.pre('save', function () {
 
- })
- schema.pre('findOneAndUpdate' , function(){
-    
- if(this._update.password ) this._update.password = bcrypt.hashSync(this._update.password , 8)
+    this.password = bcrypt.hashSync(this.password, 8)
 
- })
+})
+schema.pre('findOneAndUpdate', function () {
+
+    if (this._update.password) this._update.password = bcrypt.hashSync(this._update.password, 8)
+
+})
 
 
 export const User = model('User', schema)
