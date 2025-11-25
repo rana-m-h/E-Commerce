@@ -6,25 +6,25 @@ import { uploadSingelFile } from "../../fileUploas/upload.js";
 import { addCategoryVal } from "./category.vaildation.js";
 import { validate } from "../middelware/validate.js";
 import subcategoryRouter from "../subcategory/subcategory.routes.js";
-import { protectedRoutes } from "../auth/auth.controller.js";
+import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
 
 
 
 const categoryRouter = Router()
 
 
-categoryRouter.use('/:categorie/subCategories' , subcategoryRouter)
+categoryRouter.use('/:categorie/subCategories', subcategoryRouter)
 
 categoryRouter
-.route('/')
-.post(protectedRoutes , allowedto('admin') , uploadSingelFile('image' , 'categories' ),validate(addCategoryVal) , addCategory)
-.get(allCategory)
+    .route('/')
+    .post(protectedRoutes, allowedto('admin'), uploadSingelFile('image', 'categories'), validate(addCategoryVal), addCategory)
+    .get(allCategory)
 
 categoryRouter
-.route('/:id')
-.get(getCategory)
-.put(protectedRoutes , allowedto('admin') , uploadSingelFile('image' , 'categories' ) , updateCategory)
-.delete(protectedRoutes , allowedto('admin') , deleteCategory)
+    .route('/:id')
+    .get(getCategory)
+    .put(protectedRoutes, allowedto('admin'), uploadSingelFile('image', 'categories'), updateCategory)
+    .delete(protectedRoutes, allowedto('admin'), deleteCategory)
 
 
 export default categoryRouter
