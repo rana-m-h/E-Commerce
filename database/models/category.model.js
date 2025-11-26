@@ -1,8 +1,7 @@
 
 
 
-import { Schema, Types, model } from "mongoose";
-import mongoose from "mongoose";
+import { Schema, Types, model } from "mongoose"
 
 const schema = new Schema({
 
@@ -55,7 +54,4 @@ schema.post('init', function (doc) {
 
 
 
-
-
-
-export const Category = mongoose.models.Category || model("Category", schema);
+export const Category = model('Category', schema)

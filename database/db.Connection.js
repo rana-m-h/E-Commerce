@@ -1,17 +1,7 @@
 
 
-// import mongoose from "mongoose"
+import mongoose from "mongoose"
 
-// export const dbConnection = mongoose.connect('mongodb+srv://rana29638_db_user:mtS6vWuiT9InqIty@cluster0.zgydhbr.mongodb.net/?appName=Cluster0').then(() => {
-//     console.log('ok')
-// })
-import mongoose from "mongoose";
-
-export const connectDB = async () => {
-    try {
-        await mongoose.connect('mongodb+srv://rana29638_db_user:mtS6vWuiT9InqIty@cluster0.zgydhbr.mongodb.net/?appName=Cluster0');
-        console.log("MongoDB Connected");
-    } catch (error) {
-        console.error("MongoDB Error:", error);
-    }
-};
+export const dbConnection = mongoose.connect('mongodb+srv://rana29638_db_user:mtS6vWuiT9InqIty@cluster0.zgydhbr.mongodb.net/?appName=Cluster0').then(() => {
+    console.log('ok')
+})
