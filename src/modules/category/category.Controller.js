@@ -3,11 +3,8 @@ import slugify from "slugify";
 import { AppError } from "../../utilts/appError.js";
 import { catchError } from "../middelware/catchError.js";
 import { deleteOne, getAll, getOne } from "../handlers/handlers.js";
-import { connectDB } from "../../../database/db.Connection.js";
 
 const addCategory = catchError(async (req, res, next) => {
-    await connectDB();
-
     req.body.slug = slugify(req.body.name)
     req.body.image = req.file.filename
     let category = new Category(req.body)
@@ -18,8 +15,6 @@ const addCategory = catchError(async (req, res, next) => {
 
 
 const updateCategory = catchError(async (req, res, next) => {
-    await connectDB();
-
     if (req.body.slug) req.body.slug = slugify(req.body.name)
     if (req.file) req.body.image = req.file.filename
     let category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true })
