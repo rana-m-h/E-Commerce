@@ -2,6 +2,6 @@
 
 import mongoose from "mongoose"
 
-export const dbConnection = mongoose.connect('mongodb+srv://rana29638_db_user:mtS6vWuiT9InqIty@cluster0.zgydhbr.mongodb.net/?appName=Cluster0 ').then(() => {
+export const dbConnection = mongoose.connect('mongodb+srv://rana29638_db_user:mtS6vWuiT9InqIty@cluster0.zgydhbr.mongodb.net/?appName=Cluster0').then(() => {
     console.log('ok')
 })
