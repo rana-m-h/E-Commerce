@@ -57,4 +57,4 @@ schema.post('init', function (doc) {
 
 
 
-export const Category = mongoose.models.Category || mongoose.model("Category", schema);
+export const Category = mongoose.models.Category || model("Category", schema);
