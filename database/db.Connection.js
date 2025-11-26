@@ -7,23 +7,11 @@
 // })
 import mongoose from "mongoose";
 
-const MONGODB_URL = process.env.DB_URL;
-
-if (!MONGODB_URL) {
-    throw new Error("❌ MONGODB_URL is missing");
-}
-
-let isConnected = false;
-
 export const connectDB = async () => {
-    if (isConnected) return;
-
     try {
-        const db = await mongoose.connect(MONGODB_URL);
-        isConnected = db.connections[0].readyState === 1;
-        console.log("✅ MongoDB Connected");
-    } catch (err) {
-        console.error("❌ MongoDB Connection Error", err.message);
-        throw err;
+        await mongoose.connect(process.env.DB_UR);
+        console.log("MongoDB Connected");
+    } catch (error) {
+        console.error("MongoDB Error:", error);
     }
 };

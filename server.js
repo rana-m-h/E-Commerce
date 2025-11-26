@@ -1,6 +1,6 @@
 
 import express from 'express'
-import { connectDB, dbConnection } from './database/db.Connection.js'
+import { connectDB } from './database/db.Connection.js'
 import { bootstrap } from "./src/modules/bootstrap.js"
 import { globalError } from './src/modules/middelware/globalError.js'
 import { AppError } from './src/utilts/appError.js'
