@@ -6,9 +6,9 @@ import { globalError } from './src/modules/middelware/globalError.js'
 import { AppError } from './src/utilts/appError.js'
 import 'dotenv/config'
 const app = express()
-await connectDB();
-
 const port = 3000
+
+await connectDB();
 
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))

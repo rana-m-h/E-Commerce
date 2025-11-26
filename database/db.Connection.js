@@ -19,13 +19,11 @@ export const connectDB = async () => {
     if (isConnected) return;
 
     try {
-        const db = await mongoose.connect(MONGODB_URL, {
-            serverSelectionTimeoutMS: 5000,
-        });
-
+        const db = await mongoose.connect(MONGODB_URL);
         isConnected = db.connections[0].readyState === 1;
         console.log("✅ MongoDB Connected");
     } catch (err) {
-        console.error("❌ MongoDB Connection Error", err);
+        console.error("❌ MongoDB Connection Error", err.message);
+        throw err;
     }
 };
