@@ -45,16 +45,16 @@ const schema = new Schema({
 
 
 
-schema.post('init' , function(doc){
+schema.post('init', function (doc) {
 
-    doc.image =  process.env.BASE_URL + "categories/" + doc.image
-    
-    })
-    
+    doc.image = process.env.BASE_URL + "categories/" + doc.image
 
+})
 
 
 
 
 
-export const Category = model('Category', schema)
+
+
+export const Category = mongoose.models.Category || mongoose.model("Category", schema);

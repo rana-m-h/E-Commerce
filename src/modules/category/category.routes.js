@@ -13,7 +13,7 @@ import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
 const categoryRouter = Router()
 
 
-categoryRouter.use('/:categorie/subCategories', subcategoryRouter)
+categoryRouter.use('/:category/subCategories', subcategoryRouter)
 
 categoryRouter
     .route('/')

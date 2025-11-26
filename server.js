@@ -1,11 +1,13 @@
 
 import express from 'express'
-import { dbConnection } from './database/db.Connection.js'
+import { connectDB, dbConnection } from './database/db.Connection.js'
 import { bootstrap } from "./src/modules/bootstrap.js"
 import { globalError } from './src/modules/middelware/globalError.js'
 import { AppError } from './src/utilts/appError.js'
 import 'dotenv/config'
 const app = express()
+await connectDB();
+
 const port = 3000
 
 app.use(express.json())
