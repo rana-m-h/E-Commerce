@@ -10,7 +10,7 @@ import { AppError } from "../../utilts/appError.js"
 
 const singup = catchError(async (req, res, next) => {
   let user = new User(req.body)
-  await User.save()
+  await user.save()
   let token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_KEY)
   res.json({ message: "success", token })
 
