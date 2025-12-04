@@ -6,6 +6,7 @@ import { deleteOne, getAll, getOne } from "../handlers/handlers.js";
 
 const addCategory = catchError(async (req, res, next) => {
     req.body.slug = slugify(req.body.name);
+    console.log("REQ BODY:", req.body); // <-- هنا هتشوف image
 
     const category = new Category(req.body);
     await category.save();
