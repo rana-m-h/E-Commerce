@@ -62,6 +62,9 @@ function fileFilter(req, file, cb) {
     cb(new AppError("image only", 400), false);
   }
 }
+export const uploadMaxOFlFile = (arrayOfFields, folderName) =>
+  upload.fields(arrayOfFields);
+
 
 export const upload = multer({ storage, fileFilter });
 
