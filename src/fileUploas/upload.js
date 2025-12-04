@@ -14,60 +14,91 @@
 //           cb(null, uuidv4() + "-" + file.originalname)
 //         }
 //       })
-      
-      
+
+
 //       function fileFilter (req, file, cb) {
 //         console.log(file)
 //         if(file.mimetype.startsWith('image')){
-      
+
 //           cb(null, true)
 //         }else{
 //           cb(new AppError('image only', 401), false)
 //         }
-         
-      
+
+
 //       }
-      
+
 //       const upload = multer({ storage , fileFilter , limits:{
 //         fieldSize : 1 * 1024 * 1024
 //       }})
- 
+
 //       return upload
 // }
 
 // export const uploadSingelFile = (filedName , folderName) => fileUpolad(folderName).single(filedName)
 
 // export const uploadMaxOFlFile = (arrayOfFields , folderName) => fileUpolad(folderName).fields(arrayOfFields)
-import multer from 'multer';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
-import cloudinary from '../config/cloudinary.js';
+import multer from "multer";
+import { v2 as cloudinary } from "cloudinary";
+import { AppError } from "../utilts/appError.js";
 
-export const fileUpload = (folderName) => {
-  const storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-      folder: folderName,
-      allowed_formats: ["jpg", "png", "jpeg", "webp"]
+// Cloudinary Config
+cloudinary.config({
+  cloud_name: "dhle3znhh",
+  api_key: "238988357461961",
+  api_secret: "m6TyUC3Pl8tAUexF3jaWQOD1v68"
+});
+
+// Multer Memory Storage
+const storage = multer.memoryStorage();
+
+function fileFilter(req, file, cb) {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new AppError("image only", 400), false);
+  }
+}
+
+export const upload = multer({ storage, fileFilter });
+
+
+// Upload Image to Cloudinary
+export const uploadToCloudinary = async (file, folderName) => {
+  return await cloudinary.uploader.upload_stream(
+    {
+      folder: folderName
     },
-  });
-
-  const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image')) {
-      cb(null, true);
-    } else {
-      cb(new AppError("image only", 400), false);
+    (err, result) => {
+      if (err) return null;
+      file.cloudinaryCallback(result);
     }
-  };
-
-  return multer({
-    storage,
-    fileFilter,
-    limits: { fileSize: 1 * 1024 * 1024 }
-  });
+  );
 };
 
-export const uploadSingleFile = (fieldName, folderName) =>
-  fileUpload(folderName).single(fieldName);
+// Middleware to process single image upload
+export const uploadSingleImage = (fieldName, folderName) => {
+  return async (req, res, next) => {
+    upload.single(fieldName)(req, res, async (err) => {
+      if (err) return next(err);
 
-export const uploadMaxOfFile = (fields, folderName) =>
-  fileUpload(folderName).fields(fields);
+      if (!req.file) return next();
+
+      req.file.cloudinaryCallback = (result) => {
+        req.body.image = result.secure_url;
+        next();
+      };
+
+      // Convert buffer to stream
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: folderName },
+        (error, result) => {
+          if (error) return next(error);
+          req.body.image = result.secure_url;
+          next();
+        }
+      );
+      stream.end(req.file.buffer);
+    });
+  };
+};
