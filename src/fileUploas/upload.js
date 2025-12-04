@@ -41,12 +41,15 @@
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import { AppError } from "../utilts/appError.js";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load .env variables
 
 // Cloudinary Config
 cloudinary.config({
-  cloud_name: "dhle3znhh",
-  api_key: "238988357461961",
-  api_secret: "m6TyUC3Pl8tAUexF3jaWQOD1v68"
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
 // Multer Memory Storage
@@ -62,20 +65,6 @@ function fileFilter(req, file, cb) {
 
 export const upload = multer({ storage, fileFilter });
 
-
-// Upload Image to Cloudinary
-export const uploadToCloudinary = async (file, folderName) => {
-  return await cloudinary.uploader.upload_stream(
-    {
-      folder: folderName
-    },
-    (err, result) => {
-      if (err) return null;
-      file.cloudinaryCallback(result);
-    }
-  );
-};
-
 // Middleware to process single image upload
 export const uploadSingleImage = (fieldName, folderName) => {
   return async (req, res, next) => {
@@ -84,12 +73,6 @@ export const uploadSingleImage = (fieldName, folderName) => {
 
       if (!req.file) return next();
 
-      req.file.cloudinaryCallback = (result) => {
-        req.body.image = result.secure_url;
-        next();
-      };
-
-      // Convert buffer to stream
       const stream = cloudinary.uploader.upload_stream(
         { folder: folderName },
         (error, result) => {
@@ -98,6 +81,7 @@ export const uploadSingleImage = (fieldName, folderName) => {
           next();
         }
       );
+
       stream.end(req.file.buffer);
     });
   };
