@@ -3,6 +3,7 @@
 import { Router } from "express";
 import { addproduct, allproducts, deleteproduct, getproduct, updateproduct } from "./product.Controller.js";
 import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
+import { uploadMaxOFlFile } from "../../fileUploas/upload.js";
 
 const ProductRouter = Router()
 
