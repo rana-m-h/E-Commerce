@@ -71,8 +71,10 @@ export const upload = multer({ storage, fileFilter });
 // Middleware to process single image upload
 export const uploadSingleImage = (fieldName, folderName) => {
   return async (req, res, next) => {
+
     upload.single(fieldName)(req, res, async (err) => {
       if (err) return next(err);
+      console.log("REQ FILE:", req.file);
 
       if (!req.file) return next();
 
@@ -81,9 +83,12 @@ export const uploadSingleImage = (fieldName, folderName) => {
         (error, result) => {
           if (error) return next(error);
           req.body.image = result.secure_url;
+          console.log("IMAGE URL:", req.body.image); // تحقق من الرابط بعد الرفع
+
           next();
         }
       );
+      console.log('FILE TO UPLOAD:', req.file.originalname);
 
       stream.end(req.file.buffer);
     });
