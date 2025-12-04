@@ -1,7 +1,7 @@
 
 
 import { Router } from "express";
-import { uploadSingelFile } from "../../fileUploas/upload.js";
+import { uploadSingleImage } from "../../fileUploas/upload.js";
 import { addbrand, allbrands, deletebrand, getbrand, updatebrand } from "./brand.Controller.js";
 import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
 
@@ -9,13 +9,13 @@ const brandRouter = Router()
 
 brandRouter
     .route('/')
-    .post(protectedRoutes, allowedto('admin'), uploadSingelFile('logo', 'brands'), addbrand)
+    .post(protectedRoutes, allowedto('admin'), uploadSingleImage('logo', 'brands'), addbrand)
     .get(allbrands)
 
 brandRouter
     .route('/:id')
     .get(getbrand)
-    .put(protectedRoutes, allowedto('admin'), uploadSingelFile('logo', 'brands'), updatebrand)
+    .put(protectedRoutes, allowedto('admin'), uploadSingleImage('logo', 'brands'), updatebrand)
     .delete(protectedRoutes, allowedto('admin'), deletebrand)
 
 
