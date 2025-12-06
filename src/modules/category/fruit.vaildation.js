@@ -2,7 +2,7 @@
 import joi from 'joi'
 
 
-const addCategoryVal = joi.object({
+const addFruitVal = joi.object({
 
     name: joi.string().min(1).max(50).required(),
 }).unknown(true) // <-- يسمح بأي حقول إضافية مثل image
@@ -12,5 +12,5 @@ const addCategoryVal = joi.object({
 
 
 export {
-    addCategoryVal
+    addFruitVal
 }
