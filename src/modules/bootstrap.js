@@ -10,7 +10,7 @@ import fruitRouter from "./category/fruit.routes.js"
 
 
 export const bootstrap = (app) => {
-    app.use('/api/fruit', fruitRouter)
+    app.use('/api/fruits', fruitRouter)
     app.use('/api/subcategories', subcategoryRouter)
     app.use('/api/brands', brandRouter)
     app.use('/api/products', productRouter)
