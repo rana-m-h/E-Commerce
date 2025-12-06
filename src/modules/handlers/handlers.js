@@ -22,7 +22,7 @@ export const getAll = (model) => {
   return catchError(async (req, res, next) => {
 
     let apiFeatures = new ApiFeatures(model.find(), req.query)
-    fields().filter().search().sort()
+      .pagination().fields().filter().search().sort()
     let docoment = await apiFeatures.mongooseQuery
     res.json({ message: "success", page: apiFeatures.pageNumber, docoment })
 
