@@ -5,7 +5,7 @@ import reviewRouter from "./review/review.routes.js"
 import userRouter from "./user/user.routes.js"
 import wishlistRouter from "./wishlist/wishlist.routes.js"
 import authRouter from "./auth/auth.routes.js"
-import fruitRouter from "./category/fruit.routes.js"
+import fruitRouter from "./fruit/fruit.routes.js"
 import detailsfruitRouter from "./detailsfruit/detailsfruit.routes.js"
 
 
