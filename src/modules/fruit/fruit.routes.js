@@ -3,7 +3,7 @@
 import { Router } from "express";
 import { uploadSingleImage } from "../../fileUploas/upload.js";
 import { validate } from "../middelware/validate.js";
-import subcategoryRouter from "../subcategory/subcategory.routes.js";
+import subcategoryRouter from "../detailsfruit/detailsfruit.routes.js";
 import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
 import { addFruitVal } from "./fruit.vaildation.js";
 import { addFruit, allFruit, deleteFruit, getFruit, updateFruit } from "./fruit.Controller.js";

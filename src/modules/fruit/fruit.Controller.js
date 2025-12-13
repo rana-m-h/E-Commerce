@@ -6,7 +6,6 @@ import { Fruit } from "../../../database/models/fruit.model.js";
 
 const addFruit = catchError(async (req, res, next) => {
     req.body.slug = slugify(req.body.name);
-    console.log("REQ BODY:", req.body); // <-- هنا هتشوف image
 
     const fruit = new Fruit(req.body);
     await fruit.save();

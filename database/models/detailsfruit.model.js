@@ -19,10 +19,10 @@ const schema = new Schema({
         unique: [true, 'name is required'],
     },
 
-    Category: {
+    Fruit: {
 
         type: Types.ObjectId,
-        ref: "Category"
+        ref: "Fruit"
 
     },
 
@@ -44,4 +44,4 @@ const schema = new Schema({
     versionKey: false
 })
 
-export const SubCategory = model('SubCategory', schema)
+export const DetailsFruit = model('DetailsFruit', schema)
