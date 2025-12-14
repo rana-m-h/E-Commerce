@@ -22,7 +22,7 @@ const schema = new Schema({
     Fruit: {
 
         type: Types.ObjectId,
-        ref: "Fruit"
+        ref: "fruit"
 
     },
 
