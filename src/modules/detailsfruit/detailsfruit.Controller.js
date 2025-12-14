@@ -9,7 +9,7 @@ const allDetailsFruit = catchError(async (req, res, next) => {
 
     let filterObj = {}
 
-    if (req.params.fruit) filterObj.fruit = req.params.fruit
+    if (req.params.fruit) filterObj.Fruit = req.params.fruit
 
     let apiFeatures = new ApiFeatures(DetailsFruit.find(filterObj), req.query)
         .pagination().fields().filter().search().sort()
