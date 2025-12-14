@@ -11,7 +11,7 @@ const allDetailsFruit = catchError(async (req, res, next) => {
 
     if (req.params.fruit) filterObj.Fruit = req.params.fruit
 
-    let apiFeatures = new ApiFeatures(DetailsFruit.find(filterObj).populate('Fruit', 'image'), req.query)
+    let apiFeatures = new ApiFeatures(DetailsFruit.find(filterObj).populate('Fruit', 'name slug image'), req.query)
         .pagination().fields().filter().search().sort()
 
     let detailsfruits = await apiFeatures.mongooseQuery

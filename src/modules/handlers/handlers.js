@@ -33,13 +33,11 @@ export const getAll = (model) => {
 
 export const addOne = (model) => {
   return catchError(async (req, res, next) => {
-    req.body.slug = slugify(req.body.name)
     let docoment = new model(req.body)
     await docoment.save()
     res.json({ message: "success", docoment })
 
   })
-
 
 }
 
