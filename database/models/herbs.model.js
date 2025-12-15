@@ -10,7 +10,7 @@ const schema = new Schema({
         unique: [true, 'name is required'],
         trim: true,
         required: true,
-        minLength: [2, 'too short vegetable name']
+        minLength: [2, 'too short herbs name']
     },
 
     slug: {
@@ -48,4 +48,4 @@ const schema = new Schema({
 
 
 
-export const Vegetable = model('vegetable', schema)
+export const Herbs = model('Herbs', schema)

@@ -1,36 +1,27 @@
 
-
-
 import { Schema, Types, model } from "mongoose"
+
 
 const schema = new Schema({
 
-    name: {
+    details: {
         type: String,
-        unique: [true, 'name is required'],
+        unique: [true, 'details is required'],
         trim: true,
         required: true,
-        minLength: [2, 'too short vegetable name']
     },
 
-    slug: {
-        type: String,
-        lowercase: true,
-        required: true,
-        unique: [true, 'name is required'],
+    Vegetable: {
+
+        type: Types.ObjectId,
+        ref: "Vegetable"
+
     },
-
-    image: String,
-
 
     createdBy: {
         type: Types.ObjectId,
         ref: 'User'
     },
-
-
-
-
 
 
 }, {
@@ -42,10 +33,4 @@ const schema = new Schema({
     versionKey: false
 })
 
-
-
-
-
-
-
-export const Vegetable = model('vegetable', schema)
+export const DetailsVegetable = model('DetailsVegetable', schema)

@@ -4,16 +4,16 @@ import { Router } from "express";
 import { uploadSingleImage } from "../../fileUploas/upload.js";
 import { validate } from "../middelware/validate.js";
 import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
-import detailsfruitRouter from "../detailsfruit/detailsfruit.routes.js";
 import { addVegetable, allVegetable, deleteVegetable, getVegetable, updateVegetable } from "./vegetable.Controller.js";
 import { addVegetableVal } from "./vegetable.vaildation.js";
+import detailsvegetableRouter from "../detailsfvegetable/detailsvegetable.routes.js";
 
 
 
 const vegetableRouter = Router()
 
 
-vegetableRouter.use('/:fruit/detailsfruits', detailsfruitRouter)
+vegetableRouter.use('/:vegetable/detailsvegetable', detailsvegetableRouter)
 
 vegetableRouter
     .route('/')
