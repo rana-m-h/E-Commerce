@@ -2,16 +2,16 @@ import { Router } from "express";
 import { uploadSingleImage } from "../../fileUploas/upload.js";
 import { validate } from "../middelware/validate.js";
 import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
-import detailsfruitRouter from "../detailsfruit/detailsfruit.routes.js";
 import { addHerbs, allHerbs, deleteHerbs, getHerbs, updateHerbs } from "./herbs.Controller.js";
 import { addHerbsVal } from "./herbs.vaildation.js";
+import detailsherbsRouter from './../detailsherbs/detailsherbs.routes';
 
 
 
 const herbsRouter = Router()
 
 
-herbsRouter.use('/:herbs/detailsfruits', detailsfruitRouter)
+herbsRouter.use('/:herbs/detailsherbs', detailsherbsRouter)
 
 herbsRouter
     .route('/')
