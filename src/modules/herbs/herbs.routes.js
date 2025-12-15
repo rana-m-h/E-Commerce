@@ -4,7 +4,7 @@ import { validate } from "../middelware/validate.js";
 import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
 import { addHerbs, allHerbs, deleteHerbs, getHerbs, updateHerbs } from "./herbs.Controller.js";
 import { addHerbsVal } from "./herbs.vaildation.js";
-import detailsherbsRouter from './../detailsherbs/detailsherbs.routes';
+import detailsherbsRouter from './../detailsherbs/detailsherbs.routes.js';
 
 
 
