@@ -2,7 +2,7 @@
 
 import { Router } from "express";
 import { protectedRoutes, allowedto } from "../auth/auth.controller.js";
-import { addDetailsVegetable, allDetailsVegetable, getDetailsVegetable, updateDetailsVegetable } from "./detailsvegetableController.js";
+import { addDetailsVegetable, allDetailsVegetable, deleteDetailsVegetable, getDetailsVegetable, updateDetailsVegetable } from "./detailsvegetableController.js";
 
 
 const detailsvegetableRouter = Router({ mergeParams: true })
@@ -16,7 +16,7 @@ detailsvegetableRouter
     .route('/:id')
     .get(getDetailsVegetable)
     .put(protectedRoutes, allowedto('admin'), updateDetailsVegetable)
-    .delete(protectedRoutes, allowedto('admin'), detailsvegetableRouter)
+    .delete(protectedRoutes, allowedto('admin'), deleteDetailsVegetable)
 
 
 export default detailsvegetableRouter
