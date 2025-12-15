@@ -1,5 +1,3 @@
-
-
 import { Router } from "express";
 import { uploadSingleImage } from "../../fileUploas/upload.js";
 import { validate } from "../middelware/validate.js";
