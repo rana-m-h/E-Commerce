@@ -48,4 +48,4 @@ const schema = new Schema({
 
 
 
-export const Vegetable = model('vegetable', schema)
+export const Vegetable = model('Vegetable', schema)
