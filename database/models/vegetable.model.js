@@ -3,7 +3,6 @@
 
 import { Schema, Types, model } from "mongoose"
 
-
 const schema = new Schema({
 
     name: {
@@ -11,7 +10,7 @@ const schema = new Schema({
         unique: [true, 'name is required'],
         trim: true,
         required: true,
-        minLength: [2, 'too short category name']
+        minLength: [2, 'too short fruit name']
     },
 
     slug: {
@@ -21,12 +20,16 @@ const schema = new Schema({
         unique: [true, 'name is required'],
     },
 
-    logo: String,
+    image: String,
+
 
     createdBy: {
         type: Types.ObjectId,
         ref: 'User'
     },
+
+
+
 
 
 
@@ -40,14 +43,9 @@ const schema = new Schema({
 })
 
 
-schema.post('init' , function(doc){
-
-    doc.logo =  process.env.BASE_URL +  "brands/" + doc.logo
-    
-    })
-    
 
 
 
 
-export const Brand = model('Brand', schema)
+
+export const Vegetable = model('vegetable', schema)

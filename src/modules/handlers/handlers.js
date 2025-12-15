@@ -1,10 +1,7 @@
-
 import slugify from "slugify"
 import { ApiFeatures } from "../../utilts/apiFeatures.js"
 import { catchError } from "../middelware/catchError.js"
 import { AppError } from "../../utilts/appError.js"
-
-
 
 export const deleteOne = (model) => {
   return catchError(async (req, res, next) => {
@@ -15,7 +12,6 @@ export const deleteOne = (model) => {
   })
 
 }
-
 
 export const getAll = (model) => {
 
@@ -41,8 +37,6 @@ export const addOne = (model) => {
 
 }
 
-
-
 export const getOne = (model) => {
   return catchError(async (req, res, next) => {
 
@@ -53,8 +47,6 @@ export const getOne = (model) => {
   })
 
 }
-
-
 
 export const updateOne = (model) => {
   return catchError(async (req, res, next) => {
