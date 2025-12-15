@@ -10,7 +10,7 @@ import detailsherbsRouter from "./detailsherbs/detailsherbs.routes.js"
 
 export const bootstrap = (app) => {
     app.use('/api/fruits', fruitRouter)
-    app.use('/api/vegetables', vegetableRouter)
+    app.use('/api/vegetable', vegetableRouter)
     app.use('/api/herbs', herbsRouter)
     app.use('/api/detailsfruits', detailsfruitRouter)
     app.use('/api/detailsvegetables', detailsvegetableRouter)
