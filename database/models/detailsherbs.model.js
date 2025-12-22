@@ -4,9 +4,9 @@ import { Schema, Types, model } from "mongoose"
 
 const schema = new Schema({
 
-    details: {
+    benefits: {
         type: String,
-        unique: [true, 'details is required'],
+        unique: [true, 'benefits is required'],
         trim: true,
         required: true,
     },
