@@ -21,8 +21,7 @@ const schema = new Schema({
         title: { type: String, trim: true, required: true },
         subtitle: { type: String, trim: true, default: "" },
         description: { type: String, trim: true, default: "" },
-        icon: { type: String, trim: true, default: "" },
-        color: { type: String, trim: true, default: "" },
+
     }],
 
     Fruit: {
