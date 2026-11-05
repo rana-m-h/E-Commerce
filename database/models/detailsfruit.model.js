@@ -4,12 +4,6 @@ import { Schema, Types, model } from "mongoose"
 
 const schema = new Schema({
 
-    // Legacy field name accepted by older deployments; controller mirrors description into it.
-    details: {
-        type: String,
-        trim: true,
-        default: "",
-    },
 
     // Content used by the fruit detail page.
     description: {
