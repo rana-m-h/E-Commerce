@@ -5,6 +5,7 @@ import { Schema, Types, model } from "mongoose"
 const schema = new Schema({
 
 
+
     // Content used by the fruit detail page.
     description: {
         type: String,
