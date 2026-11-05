@@ -1,11 +1,20 @@
 
 import { Schema, Types, model } from "mongoose"
 
+const benefitsSchema = new Schema({
+    overview: { type: String, required: true, trim: true },
+    heart: [{ type: String }],
+    cancer: [{ type: String }],
+    digestive: [{ type: String }],
+    otherBenefits: [{ type: String }],
+    nutritionalValue: [{ type: String }]
+});
+
 
 const schema = new Schema({
 
     benefits: {
-        type: String,
+        type: benefitsSchema,
         unique: [true, 'benefits is required'],
         trim: true,
         required: true,

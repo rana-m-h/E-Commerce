@@ -17,7 +17,7 @@ const schema = new Schema({
         type: String,
         lowercase: true,
         required: true,
-        unique: [true, 'name is required'],
+        unique: [true, 'slug is required'],
     },
 
     image: String,

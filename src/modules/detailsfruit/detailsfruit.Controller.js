@@ -1,28 +1,50 @@
 
 import { catchError } from "../middelware/catchError.js";
-import { addOne, deleteOne, getOne, updateOne } from "../handlers/handlers.js";
-import { ApiFeatures } from "../../utilts/apiFeatures.js";
+import { deleteOne } from "../handlers/handlers.js";
 import { DetailsFruit } from "../../../database/models/detailsfruit.model.js";
+import { Fruit } from "../../../database/models/fruit.model.js";
+import { AppError } from "../../utilts/appError.js";
 
 
 const allDetailsFruit = catchError(async (req, res, next) => {
 
-    let filterObj = {}
+    const filter = {};
+    const fruitId = req.params.fruit || req.query.fruitId;
+    const fruitSlug = req.query.fruit;
 
-    if (req.params.fruit) filterObj.Fruit = req.params.fruit
+    if (fruitId) filter.Fruit = fruitId;
+    if (fruitSlug) {
+        const fruit = await Fruit.findOne({ slug: fruitSlug }).select('_id');
+        if (!fruit) return next(new AppError('fruit not found', 404));
+        filter.Fruit = fruit._id;
+    }
 
-    let apiFeatures = new ApiFeatures(DetailsFruit.find(filterObj).populate('Fruit', 'name slug image'), req.query)
-        .pagination().fields().filter().search().sort()
-
-    let detailsfruits = await apiFeatures.mongooseQuery
-    res.json({ message: "success", page: apiFeatures.pageNumber, detailsfruits })
+    const detailsfruits = await DetailsFruit.find(filter)
+        .populate('Fruit', 'name slug image')
+        .sort({ publishedDate: -1 });
+    res.json({ message: "success", detailsfruits })
 
 })
 
-const addDetailsFruit = addOne(DetailsFruit)
-const getDetailsFruit = getOne(DetailsFruit)
+const addDetailsFruit = catchError(async (req, res, next) => {
+    const details = new DetailsFruit({ ...req.body, createdBy: req.user?._id });
+    await details.save();
+    await details.populate('Fruit', 'name slug image');
+    res.status(201).json({ message: 'success', detailsfruit: details });
+});
+
+const getDetailsFruit = catchError(async (req, res, next) => {
+    const detailsfruit = await DetailsFruit.findById(req.params.id).populate('Fruit', 'name slug image');
+    if (!detailsfruit) return next(new AppError('details not found', 404));
+    res.json({ message: 'success', detailsfruit });
+});
 const deleteDetailsFruit = deleteOne(DetailsFruit)
-const updateDetailsFruit = updateOne(DetailsFruit)
+const updateDetailsFruit = catchError(async (req, res, next) => {
+    const detailsfruit = await DetailsFruit.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+        .populate('Fruit', 'name slug image');
+    if (!detailsfruit) return next(new AppError('details not found', 404));
+    res.json({ message: 'success', detailsfruit });
+});
 
 
 

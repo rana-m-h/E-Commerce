@@ -4,18 +4,32 @@ import { Schema, Types, model } from "mongoose"
 
 const schema = new Schema({
 
-    benefits: {
+    // Content used by the fruit detail page.
+    description: {
         type: String,
-        unique: [true, 'benefits is required'],
         trim: true,
-        required: true,
+        default: "",
     },
+
+    nutrition: {
+        grams: { type: Number, min: 0 },
+        calories: { type: Number, min: 0 },
+        fat: { type: Number, min: 0 },
+    },
+
+    benefits: [{
+        title: { type: String, trim: true, required: true },
+        subtitle: { type: String, trim: true, default: "" },
+        description: { type: String, trim: true, default: "" },
+        icon: { type: String, trim: true, default: "" },
+        color: { type: String, trim: true, default: "" },
+    }],
 
     Fruit: {
 
         type: Types.ObjectId,
-        ref: "Fruit"
-
+        ref: "Fruit",
+        required: true,
     },
 
     createdBy: {
