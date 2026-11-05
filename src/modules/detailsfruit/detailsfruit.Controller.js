@@ -27,7 +27,11 @@ const allDetailsFruit = catchError(async (req, res, next) => {
 })
 
 const addDetailsFruit = catchError(async (req, res, next) => {
-    const details = new DetailsFruit({ ...req.body, createdBy: req.user?._id });
+    const details = new DetailsFruit({
+        ...req.body,
+        details: req.body.details ?? req.body.description ?? "",
+        createdBy: req.user?._id,
+    });
     await details.save();
     await details.populate('Fruit', 'name slug image');
     res.status(201).json({ message: 'success', detailsfruit: details });
@@ -40,7 +44,12 @@ const getDetailsFruit = catchError(async (req, res, next) => {
 });
 const deleteDetailsFruit = deleteOne(DetailsFruit)
 const updateDetailsFruit = catchError(async (req, res, next) => {
-    const detailsfruit = await DetailsFruit.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    const update = { ...req.body };
+    if (update.description !== undefined && update.details === undefined) {
+        update.details = update.description;
+    }
+
+    const detailsfruit = await DetailsFruit.findByIdAndUpdate(req.params.id, update, { new: true, runValidators: true })
         .populate('Fruit', 'name slug image');
     if (!detailsfruit) return next(new AppError('details not found', 404));
     res.json({ message: 'success', detailsfruit });
